@@ -1,12 +1,292 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kelas Bu Sari</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksplorasi Notasi Atom - Ahli Koding Kimia</title>
+    <!-- Tailwind CSS untuk styling modern dan responsif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .atom-notation {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+            font-family: serif;
+        }
+    </style>
 </head>
-<body>
-  <h1>Selamat datang!</h1>
-  <p>Website kelas Fisika.</p>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-slate-900">
+
+    <!-- Header -->
+    <header class="bg-slate-800/80 backdrop-blur-md border-b border-slate-700/50 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <div class="flex items-center gap-3">
+                <div class="bg-cyan-500/10 border border-cyan-500/30 p-2 rounded-xl text-cyan-400 font-bold text-xl">🧪</div>
+                <div>
+                    <h1 class="text-lg font-bold tracking-tight text-white">Lab Notasi Atom</h1>
+                    <p class="text-xs text-slate-400">Ahli Koding Kimia • Interaktif & Edukatif</p>
+                </div>
+            </div>
+            <div class="text-xs bg-slate-700/50 border border-slate-600/50 px-3 py-1.5 rounded-full text-slate-300">
+                Format: <span class="text-cyan-400 font-mono">ᴬ_ᶻXⁿ⁺/ⁿ⁻</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 flex-grow">
+        
+        <!-- Left Column: Visualisasi Notasi & Kalkulator -->
+        <section class="lg:col-span-7 flex flex-col gap-6">
+            
+            <!-- Kartu Visualisasi Notasi Atom -->
+            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-xl relative overflow-hidden flex flex-col items-center text-center">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500"></div>
+                
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-6">Visualisasi Notasi Atom Standar</h2>
+
+                <!-- Render Notasi Atom -->
+                <div class="my-6 p-8 bg-slate-900/80 border border-slate-700/60 rounded-2xl w-full flex items-center justify-center shadow-inner group">
+                    <div class="text-6xl sm:text-7xl font-bold tracking-wide text-white flex items-start relative py-4 px-6">
+                        <!-- Superscript & Subscript Container di Kiri -->
+                        <div class="flex flex-col text-right justify-between h-20 sm:h-24 mr-2 text-2xl sm:text-3xl font-mono">
+                            <!-- Nomor Massa (A) -->
+                            <span id="disp-mass" class="text-cyan-400 transition-all duration-300" title="Nomor Massa (A)">12</span>
+                            <!-- Nomor Atom (Z) -->
+                            <span id="disp-atomic" class="text-amber-400 transition-all duration-300" title="Nomor Atom (Z)">6</span>
+                        </div>
+                        
+                        <!-- Lambang Unsur (X) -->
+                        <div class="relative flex items-center">
+                            <span id="disp-symbol" class="text-cyan-200 transition-all duration-300 drop-shadow-[0_0_15px_rgba(6,182,212,0.3)]">C</span>
+                            
+                            <!-- Muatan Ion (Superscript Kanan Atas) -->
+                            <span id="disp-charge" class="absolute -top-3 -right-6 text-xl sm:text-2xl font-mono text-emerald-400 transition-all duration-300"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keterangan Cepat Komponen -->
+                <div class="grid grid-cols-3 gap-2 w-full text-xs text-slate-300 mt-2">
+                    <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50">
+                        <span class="text-cyan-400 font-bold block mb-0.5">A (Massa)</span>
+                        <span id="label-desc-a">Proton + Neutron</span>
+                    </div>
+                    <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50">
+                        <span class="text-amber-400 font-bold block mb-0.5">Z (Atom)</span>
+                        <span id="label-desc-z">Jumlah Proton</span>
+                    </div>
+                    <div class="bg-slate-900/50 p-2.5 rounded-lg border border-slate-700/50">
+                        <span class="text-emerald-400 font-bold block mb-0.5">Muatan (n)</span>
+                        <span id="label-desc-charge">Selisih p⁻ & e⁻</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kalkulator & Kontrol Kustom -->
+            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col gap-4">
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Kalkulator & Pengaturan Atom</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Lambang Unsur (X)</label>
+                        <input type="text" id="input-symbol" value="C" maxlength="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono uppercase focus:outline-none focus:border-cyan-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Nomor Atom (Z = Proton)</label>
+                        <input type="number" id="input-atomic" value="6" min="1" max="118" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono focus:outline-none focus:border-cyan-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Nomor Massa (A)</label>
+                        <input type="number" id="input-mass" value="12" min="1" max="300" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono focus:outline-none focus:border-cyan-500 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-300 mb-1">Muatan Ion (Contoh: +1, -2, 0)</label>
+                        <input type="number" id="input-charge" value="0" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-white font-mono focus:outline-none focus:border-cyan-500 transition">
+                    </div>
+                </div>
+
+                <!-- Notifikasi error validasi kalkulator -->
+                <div id="calc-error" class="hidden bg-red-500/10 border border-red-500/30 text-red-400 text-xs p-3 rounded-xl">
+                    Peringatan: Nomor massa (A) tidak boleh lebih kecil dari nomor atom (Z)!
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Right Column: Hasil Kalkulasi & Pilihan Unsur Cepat -->
+        <section class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- Panel Hasil Kalkulasi Sub-partikel -->
+            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col gap-4">
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Hasil Kalkulasi Sub-Partikel</h2>
+                
+                <div class="grid grid-cols-1 gap-3">
+                    <div class="bg-slate-900/60 border border-slate-700/60 p-4 rounded-xl flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                            <span class="text-sm font-medium text-slate-200">Jumlah Proton (p⁺)</span>
+                        </div>
+                        <span id="res-proton" class="text-lg font-mono font-bold text-amber-400">6</span>
+                    </div>
+
+                    <div class="bg-slate-900/60 border border-slate-700/60 p-4 rounded-xl flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-cyan-400"></span>
+                            <span class="text-sm font-medium text-slate-200">Jumlah Neutron (n⁰)</span>
+                        </div>
+                        <span id="res-neutron" class="text-lg font-mono font-bold text-cyan-400">6</span>
+                    </div>
+
+                    <div class="bg-slate-900/60 border border-slate-700/60 p-4 rounded-xl flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                            <span class="text-sm font-medium text-slate-200">Jumlah Elektron (e⁻)</span>
+                        </div>
+                        <span id="res-electron" class="text-lg font-mono font-bold text-emerald-400">6</span>
+                    </div>
+                </div>
+
+                <!-- Formula Singkat -->
+                <div class="bg-cyan-500/10 border border-cyan-500/20 p-4 rounded-xl text-xs text-cyan-300 space-y-1 mt-1">
+                    <p>💡 <strong class="text-white">Rumus Cepat:</strong></p>
+                    <p>• Proton = Z</p>
+                    <p>• Neutron = A - Z</p>
+                    <p>• Elektron = Z - Muatan (Ion)</p>
+                </div>
+            </div>
+
+            <!-- Pilihan Unsur Populer (Preset) -->
+            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col gap-4">
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Pilih Unsur Populer</h2>
+                
+                <div class="grid grid-cols-4 gap-2" id="preset-container">
+                    <!-- Tombol preset akan dimuat via JS -->
+                </div>
+            </div>
+
+            <!-- Edukasi Komponen Notasi Atom -->
+            <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col gap-3">
+                <h2 class="text-sm font-semibold text-slate-400 uppercase tracking-wider">Anatomi Notasi Atom</h2>
+                <div class="space-y-2 text-xs text-slate-300">
+                    <p><strong class="text-cyan-400">X (Lambang Unsur):</strong> Singkatan atau simbol kimia dari unsur tersebut (misal: H untuk Hidrogen, Na untuk Natrium).</p>
+                    <p><strong class="text-cyan-400">A (Nomor Massa):</strong> Total penjumlahan nukleon (proton + neutron) di dalam inti atom.</p>
+                    <p><strong class="text-cyan-400">Z (Nomor Atom):</strong> Menunjukkan jumlah proton dalam inti, sekaligus menentukan identitas unsur.</p>
+                    <p><strong class="text-cyan-400">n⁺/ⁿ⁻ (Muatan):</strong> Menunjukkan kondisi atom netral (0), kation (kehilangan elektron, positif), atau anion (kelebihan elektron, negatif).</p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800/50 border-t border-slate-700/50 text-center py-4 text-xs text-slate-400">
+        <p>Aplikasi Web Notasi Atom • Dikembangkan untuk Pembelajaran Kimia Interaktif</p>
+    </footer>
+
+    <!-- Script Aplikasi -->
+    <script>
+        // Data Unsur Populer untuk Preset
+        const popularElements = [
+            { symbol: 'H', name: 'Hidrogen', z: 1, a: 1, charge: 0 },
+            { symbol: 'C', name: 'Karbon', z: 6, a: 12, charge: 0 },
+            { symbol: 'N', name: 'Nitrogen', z: 7, a: 14, charge: 0 },
+            { symbol: 'O', name: 'Oksigen', z: 8, a: 16, charge: 0 },
+            { symbol: 'Na', name: 'Natrium', z: 11, a: 23, charge: 0 },
+            { symbol: 'Cl', name: 'Klorin', z: 17, a: 35, charge: 0 },
+            { symbol: 'Na+', name: 'Ion Natrium', z: 11, a: 23, charge: 1 },
+            { symbol: 'O²⁻', name: 'Ion Oksida', z: 8, a: 16, charge: -2 }
+        ];
+
+        // Elemen DOM
+        const inputSymbol = document.getElementById('input-symbol');
+        const inputAtomic = document.getElementById('input-atomic');
+        const inputMass = document.getElementById('input-mass');
+        const inputCharge = document.getElementById('input-charge');
+
+        const dispSymbol = document.getElementById('disp-symbol');
+        const dispAtomic = document.getElementById('disp-atomic');
+        const dispMass = document.getElementById('disp-mass');
+        const dispCharge = document.getElementById('disp-charge');
+
+        const resProton = document.getElementById('res-proton');
+        const resNeutron = document.getElementById('res-neutron');
+        const resElectron = document.getElementById('res-electron');
+        const calcError = document.getElementById('calc-error');
+        const presetContainer = document.getElementById('preset-container');
+
+        // Fungsi Render Preset Buttons
+        function initPresets() {
+            popularElements.forEach(el => {
+                const btn = document.createElement('button');
+                btn.className = "bg-slate-900 border border-slate-700 hover:border-cyan-500 hover:bg-slate-700/50 text-slate-200 py-2.5 px-2 rounded-xl text-xs font-medium transition flex flex-col items-center justify-center gap-1 group";
+                btn.innerHTML = `<span class="font-bold text-cyan-400 group-hover:scale-110 transition-transform">${el.symbol}</span><span class="text-[10px] text-slate-400 truncate w-full text-center">${el.name}</span>`;
+                btn.onclick = () => {
+                    inputSymbol.value = el.symbol.replace(/[0-9+⁻²]/g, ''); // Ambil huruf bersih untuk lambang dasar
+                    inputAtomic.value = el.z;
+                    inputMass.value = el.a;
+                    inputCharge.value = el.charge;
+                    updateAtom();
+                };
+                presetContainer.appendChild(btn);
+            });
+        }
+
+        // Fungsi Kalkulasi & Pembaruan Tampilan
+        function updateAtom() {
+            let symbol = inputSymbol.value.trim() || 'X';
+            let z = parseInt(inputAtomic.value) || 0;
+            let a = parseInt(inputMass.value) || 0;
+            let charge = parseInt(inputCharge.value) || 0;
+
+            // Validasi: A tidak boleh < Z
+            if (a < z) {
+                calcError.classList.remove('hidden');
+            } else {
+                calcError.classList.add('hidden');
+            }
+
+            // Hitung sub-partikel
+            let protons = z;
+            let neutrons = Math.max(0, a - z);
+            let electrons = Math.max(0, z - charge);
+
+            // Update Tampilan Notasi Atom
+            dispSymbol.textContent = symbol;
+            dispAtomic.textContent = z;
+            dispMass.textContent = a;
+
+            // Format Muatan Ion
+            if (charge === 0) {
+                dispCharge.textContent = '';
+            } else {
+                let absCharge = Math.abs(charge);
+                let signChar = charge > 0 ? '+' : '⁻';
+                // Jika angkanya 1, cukup tulis + atau - saja (opsional, standar kimia sering ditulis Na⁺ atau Na⁺¹)
+                let chargeText = absCharge === 1 ? signChar : absCharge + signChar;
+                dispCharge.textContent = chargeText;
+            }
+
+            // Update Hasil Kalkulasi
+            resProton.textContent = protons;
+            resNeutron.textContent = neutrons;
+            resElectron.textContent = electrons;
+        }
+
+        // Event Listeners untuk Input
+        [inputSymbol, inputAtomic, inputMass, inputCharge].forEach(element => {
+            element.addEventListener('input', updateAtom);
+        });
+
+        // Inisialisasi awal saat halaman dimuat
+        window.onload = () => {
+            initPresets();
+            updateAtom();
+        };
+    </script>
 </body>
 </html>
